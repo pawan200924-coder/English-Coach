@@ -32,7 +32,7 @@ import {
 import { LEVEL_CONFIGS } from '@/lib/english-coach/levels';
 import { TUTOR_PERSONAS } from '@/lib/english-coach/personas';
 import { PRACTICE_SCENARIOS } from '@/lib/english-coach/scenarios';
-import { processConversationTurn } from '@/lib/english-coach/gemini';
+import { executeConversationTurn, AIProvider } from '@/lib/english-coach/modelProviders';
 
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
 import { useSpeechSynthesis } from '@/hooks/useSpeechSynthesis';
@@ -79,7 +79,8 @@ export default function StandaloneEnglishCoachPage() {
   // Modals & Settings
   const [isPersonaModalOpen, setIsPersonaModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
-  const [geminiApiKey, setGeminiApiKey] = useState('');
+  const [aiProvider, setAiProvider] = useState<AIProvider>('offline');
+  const [apiKey, setApiKey] = useState('');
   const [speechRate, setSpeechRate] = useState(1.0);
   const [continuousMode, setContinuousMode] = useState(false);
   const [savedVocab, setSavedVocab] = useState<SavedVocabItem[]>([]);
@@ -141,11 +142,13 @@ export default function StandaloneEnglishCoachPage() {
   // Load saved settings & initial greeting
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const storedKey = localStorage.getItem('gemini_api_key') || '';
+      const storedProvider = localStorage.getItem('english_ai_provider') as AIProvider;
+      const storedKey = localStorage.getItem('english_api_key') || localStorage.getItem('gemini_api_key') || '';
       const storedVocab = localStorage.getItem('english_vocab_vault');
       const storedLevel = localStorage.getItem('english_level') as EnglishLevel;
 
-      if (storedKey) setGeminiApiKey(storedKey);
+      if (storedProvider) setAiProvider(storedProvider);
+      if (storedKey) setApiKey(storedKey);
       if (storedVocab) {
         try {
           setSavedVocab(JSON.parse(storedVocab));
@@ -208,11 +211,11 @@ export default function StandaloneEnglishCoachPage() {
         ? `Scenario: ${activeScenario.title}. Goal: ${activeScenario.description}`
         : undefined;
 
-      const result = await processConversationTurn(
+      const result = await executeConversationTurn(
         text,
         level,
         selectedPersona,
-        geminiApiKey,
+        { provider: aiProvider, apiKey },
         scenarioContext,
         history
       );
@@ -253,9 +256,9 @@ export default function StandaloneEnglishCoachPage() {
   };
 
   const handleSaveApiKey = (key: string) => {
-    setGeminiApiKey(key);
+    setApiKey(key);
     if (typeof window !== 'undefined') {
-      localStorage.setItem('gemini_api_key', key);
+      localStorage.setItem('english_api_key', key);
     }
   };
 
@@ -365,8 +368,18 @@ export default function StandaloneEnglishCoachPage() {
           />
         </div>
 
-        {/* Right: Persona Chip & Settings */}
+        {/* Right: Persona Chip, AI Provider & Settings */}
         <div className="flex items-center gap-2">
+          {/* AI Provider Chip */}
+          <button
+            onClick={() => setIsSettingsModalOpen(true)}
+            className="hidden sm:flex items-center gap-1.5 bg-steel-2/70 hover:bg-steel-2 border border-line rounded-xl px-2 py-1.5 text-[10px] font-mono transition-colors cursor-pointer"
+            title="Active Model Provider"
+          >
+            <span className={`w-1.5 h-1.5 rounded-full ${aiProvider === 'offline' ? 'bg-emerald-400' : 'bg-orange-brand animate-ping'}`} />
+            <span className="capitalize">{aiProvider === 'offline' ? 'CEFR Engine' : aiProvider}</span>
+          </button>
+
           {/* Persona Chip */}
           <button
             onClick={() => setIsPersonaModalOpen(true)}
@@ -828,7 +841,14 @@ export default function StandaloneEnglishCoachPage() {
       <SettingsModal
         isOpen={isSettingsModalOpen}
         onClose={() => setIsSettingsModalOpen(false)}
-        geminiApiKey={geminiApiKey}
+        provider={aiProvider}
+        onProviderChange={p => {
+          setAiProvider(p);
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('english_ai_provider', p);
+          }
+        }}
+        apiKey={apiKey}
         onSaveApiKey={handleSaveApiKey}
         speechRate={speechRate}
         onSpeechRateChange={setSpeechRate}
