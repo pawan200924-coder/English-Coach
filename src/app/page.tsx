@@ -10,16 +10,16 @@ import {
   Settings,
   Sparkles,
   Bookmark,
-  Layers,
+  Compass,
   RotateCcw,
   Send,
   Flame,
   CheckCircle2,
   Play,
   Trash2,
-  HelpCircle,
   TrendingUp,
-  X
+  X,
+  PhoneOff
 } from 'lucide-react';
 
 import {
@@ -322,40 +322,41 @@ export default function StandaloneEnglishCoachPage() {
     ? 'speaking'
     : 'idle';
 
-  const levelCfg = LEVEL_CONFIGS[level];
   const latestUserTurn = [...turns].reverse().find(t => t.speaker === 'user' && t.feedback);
   const latestTutorTurn = [...turns].reverse().find(t => t.speaker === 'tutor');
 
   return (
-    <div className="h-[100dvh] w-screen bg-ink text-paper flex flex-col overflow-hidden font-sans selection:bg-orange-brand selection:text-ink relative">
-      {/* ============ TOP APP HEADER / STATUS BAR ============ */}
-      <header className="shrink-0 z-30 bg-steel-1/90 backdrop-blur-xl border-b border-line/70 px-4 py-2.5 flex items-center justify-between">
-        {/* Left: App Logo & Day Streak */}
-        <div className="flex items-center gap-2.5">
+    <div className="h-[100dvh] w-screen aurora-canvas text-white flex flex-col overflow-hidden font-sans select-none relative">
+      {/* ============ TOP APP HEADER ============ */}
+      <header className="shrink-0 z-30 px-4 sm:px-8 py-3 flex items-center justify-between">
+        {/* Left: Brand Logo & Day Streak */}
+        <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-orange-brand to-orange-dim flex items-center justify-center text-white font-bold text-xs shadow-md shadow-orange-brand/20">
-              FV
+            <div className="w-9 h-9 rounded-2xl bg-gradient-to-tr from-violet-600 via-indigo-600 to-cyan-500 p-[1.5px] shadow-lg shadow-violet-500/20">
+              <div className="w-full h-full rounded-[14px] bg-[#0A0D14] flex items-center justify-center font-bold text-xs text-white">
+                FV
+              </div>
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-bold text-sm text-white leading-none">FluentVoice</span>
-                <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-orange-brand/20 text-orange-brand font-bold">
-                  PRO
+                <span className="font-semibold text-sm tracking-tight text-white/95">FluentVoice</span>
+                <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30">
+                  AI
                 </span>
               </div>
             </div>
           </div>
 
-          <div className="h-4 w-[1px] bg-line/80 hidden sm:block" />
+          <div className="h-4 w-[1px] bg-white/10 hidden sm:block" />
 
           {/* Day Streak Pill */}
-          <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-orange-brand/10 border border-orange-brand/30 text-orange-brand font-mono text-xs font-bold shadow-sm">
-            <Flame className="w-3.5 h-3.5 fill-orange-brand" />
-            <span>{streakDays}d</span>
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full glass-pill text-amber-300 text-xs font-semibold shadow-sm">
+            <Flame className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+            <span>{streakDays}d Streak</span>
           </div>
         </div>
 
-        {/* Center: Segmented Level Switcher */}
+        {/* Center: Sleek Level Switcher */}
         <div className="w-56 sm:w-72">
           <LevelBadgeSelector
             currentLevel={level}
@@ -373,27 +374,27 @@ export default function StandaloneEnglishCoachPage() {
           {/* AI Provider Chip */}
           <button
             onClick={() => setIsSettingsModalOpen(true)}
-            className="hidden sm:flex items-center gap-1.5 bg-steel-2/70 hover:bg-steel-2 border border-line rounded-xl px-2 py-1.5 text-[10px] font-mono transition-colors cursor-pointer"
+            className="hidden sm:flex items-center gap-1.5 glass-pill rounded-full px-3 py-1.5 text-xs text-white/70 hover:text-white transition-all cursor-pointer hover:border-white/20"
             title="Active Model Provider"
           >
-            <span className={`w-1.5 h-1.5 rounded-full ${aiProvider === 'offline' ? 'bg-emerald-400' : 'bg-orange-brand animate-ping'}`} />
+            <span className={`w-1.5 h-1.5 rounded-full ${aiProvider === 'offline' ? 'bg-emerald-400' : 'bg-violet-400 animate-pulse'}`} />
             <span className="capitalize">{aiProvider === 'offline' ? 'CEFR Engine' : aiProvider}</span>
           </button>
 
           {/* Persona Chip */}
           <button
             onClick={() => setIsPersonaModalOpen(true)}
-            className="flex items-center gap-1.5 bg-steel-2 hover:bg-steel-2/80 border border-line rounded-xl px-2.5 py-1.5 text-xs font-mono transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 glass-pill rounded-full px-3 py-1.5 text-xs font-medium text-white hover:bg-white/[0.08] transition-all cursor-pointer hover:border-white/20"
             title="Change AI Tutor"
           >
             <span className="text-sm">{selectedPersona.avatar}</span>
-            <span className="hidden sm:inline text-white font-medium">{selectedPersona.name.split(' ')[0]}</span>
+            <span className="hidden sm:inline font-medium">{selectedPersona.name.split(' ')[0]}</span>
           </button>
 
-          {/* Settings */}
+          {/* Settings Button */}
           <button
             onClick={() => setIsSettingsModalOpen(true)}
-            className="p-2 rounded-xl bg-steel-2 hover:bg-steel-2/80 text-paper-dim hover:text-white border border-line transition-colors cursor-pointer"
+            className="p-2 rounded-full glass-pill text-white/60 hover:text-white transition-colors cursor-pointer hover:border-white/20"
             title="Settings"
           >
             <Settings className="w-4 h-4" />
@@ -402,48 +403,46 @@ export default function StandaloneEnglishCoachPage() {
       </header>
 
       {/* ============ MAIN VIEWPORT CONTENT ============ */}
-      <main className="flex-1 overflow-hidden relative pb-20">
-        {/* TAB 1: IMMERSIVE LIVE VOICE VIEW (ChatGPT Voice Style) */}
+      <main className="flex-1 overflow-hidden relative pb-24">
+        {/* TAB 1: IMMERSIVE LIVE VOICE CALL (ChatGPT Voice Style) */}
         {activeTab === 'voice' && (
           <div className="h-full w-full max-w-xl mx-auto flex flex-col justify-between items-center px-4 py-4 relative">
-            <div className="absolute inset-0 blueprint-grid opacity-20 pointer-events-none" />
-
-            {/* Top Info Bar inside Voice Mode */}
+            {/* Top Call Info Status */}
             <div className="w-full flex items-center justify-between z-10">
               <div className="flex items-center gap-2">
                 {activeScenario ? (
-                  <div className="flex items-center gap-1.5 bg-orange-brand/10 border border-orange-brand/30 px-3 py-1 rounded-full text-xs font-mono text-orange-brand">
-                    <span>{activeScenario.icon}</span>
-                    <span className="font-semibold truncate max-w-[200px]">{activeScenario.title}</span>
+                  <div className="flex items-center gap-2 glass-pill px-3.5 py-1.5 rounded-full text-xs text-violet-300 border-violet-500/30">
+                    <span className="text-sm">{activeScenario.icon}</span>
+                    <span className="font-medium truncate max-w-[200px]">{activeScenario.title}</span>
                     <button
                       onClick={() => setActiveScenario(null)}
-                      className="hover:text-white ml-1 text-[10px]"
-                      title="Clear Scenario"
+                      className="hover:text-white ml-1 text-white/40"
+                      title="End Scenario"
                     >
-                      <X className="w-3 h-3" />
+                      <X className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 ) : (
-                  <div className="text-xs font-mono text-paper-dim flex items-center gap-1.5">
+                  <div className="glass-pill px-3 py-1 rounded-full text-xs text-white/60 flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                     <span>Free Conversation ({level.toUpperCase()})</span>
                   </div>
                 )}
               </div>
 
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1.5">
                 {isSpeaking && (
                   <button
                     onClick={stopSpeaking}
-                    className="p-1.5 rounded-lg bg-steel-2/80 hover:bg-steel-2 text-paper-dim hover:text-red-400 transition-colors"
-                    title="Mute audio"
+                    className="p-2 rounded-full glass-pill text-white/60 hover:text-rose-400 transition-colors cursor-pointer"
+                    title="Mute AI Voice"
                   >
                     <VolumeX className="w-4 h-4" />
                   </button>
                 )}
                 <button
                   onClick={handleResetConversation}
-                  className="p-1.5 rounded-lg bg-steel-2/80 hover:bg-steel-2 text-paper-dim hover:text-white transition-colors"
+                  className="p-2 rounded-full glass-pill text-white/60 hover:text-white transition-colors cursor-pointer"
                   title="Reset conversation"
                 >
                   <RotateCcw className="w-4 h-4" />
@@ -451,38 +450,39 @@ export default function StandaloneEnglishCoachPage() {
               </div>
             </div>
 
-            {/* Center Section: Animated Voice Visualizer Orb */}
+            {/* Central Living Voice Sphere Section */}
             <div className="flex-1 flex flex-col items-center justify-center relative w-full my-auto">
               {/* Floating Pro Alternative Pill */}
               <AnimatePresence>
                 {latestUserTurn?.feedback?.proAlternative && (
                   <motion.div
-                    initial={{ opacity: 0, y: -15, scale: 0.95 }}
+                    initial={{ opacity: 0, y: -15, scale: 0.96 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                    className="w-full max-w-md bg-gradient-to-r from-orange-brand/15 via-steel-1 to-steel-1 border border-orange-brand/40 rounded-2xl p-3 shadow-xl backdrop-blur-md mb-4 text-left"
+                    exit={{ opacity: 0, y: -10, scale: 0.96 }}
+                    className="w-full max-w-md glass-panel rounded-2xl p-4 shadow-2xl mb-4 text-left border border-violet-500/30 relative overflow-hidden"
                   >
-                    <div className="flex items-center justify-between gap-2 mb-1">
-                      <div className="flex items-center gap-1.5 text-orange-brand font-mono text-[11px] uppercase font-bold tracking-wider">
+                    <div className="absolute inset-0 bg-gradient-to-r from-violet-500/10 via-indigo-500/5 to-transparent pointer-events-none" />
+                    <div className="flex items-center justify-between gap-2 mb-1.5 relative z-10">
+                      <div className="flex items-center gap-1.5 text-violet-400 text-xs font-semibold">
                         <Sparkles className="w-3.5 h-3.5" />
-                        <span>Pro Phrasing</span>
+                        <span>Pro Native Phrasing</span>
                       </div>
                       <button
                         onClick={() => speak(latestUserTurn.feedback!.proAlternative, speechRate)}
-                        className="text-orange-brand hover:text-white flex items-center gap-1 text-[10px] font-mono bg-orange-brand/10 hover:bg-orange-brand/30 px-2 py-0.5 rounded transition-colors"
+                        className="text-violet-300 hover:text-white flex items-center gap-1 text-[11px] bg-violet-500/20 hover:bg-violet-500/30 px-2.5 py-0.5 rounded-full transition-colors cursor-pointer"
                       >
                         <Volume2 className="w-3 h-3" />
                         <span>Listen</span>
                       </button>
                     </div>
-                    <p className="text-paper text-xs sm:text-sm italic leading-relaxed">
+                    <p className="text-white/95 text-xs sm:text-sm italic leading-relaxed relative z-10">
                       "{latestUserTurn.feedback.proAlternative}"
                     </p>
                   </motion.div>
                 )}
               </AnimatePresence>
 
-              {/* Central Audio-Reactive Orb */}
+              {/* Central Audio-Reactive Ethereal Sphere */}
               <VoiceVisualizerOrb
                 state={currentOrbState}
                 volumeLevel={volumeLevel}
@@ -490,13 +490,13 @@ export default function StandaloneEnglishCoachPage() {
                 onToggleMic={handleToggleMic}
               />
 
-              {/* Real-Time Floating Subtitle */}
-              <div className="min-h-[48px] max-w-md w-full text-center px-4 flex items-center justify-center">
+              {/* Real-Time Clean Subtitle Transcript */}
+              <div className="min-h-[52px] max-w-md w-full text-center px-4 flex items-center justify-center">
                 {interimTranscript ? (
                   <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-emerald-300 text-sm md:text-base font-medium italic bg-emerald-500/10 border border-emerald-500/30 px-3.5 py-1.5 rounded-xl inline-block"
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-emerald-300 text-sm md:text-base font-medium italic bg-emerald-500/10 border border-emerald-500/30 px-4 py-2 rounded-2xl inline-block shadow-sm"
                   >
                     "{interimTranscript}"
                   </motion.p>
@@ -504,64 +504,64 @@ export default function StandaloneEnglishCoachPage() {
                   <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="text-paper text-sm leading-relaxed"
+                    className="text-white/90 text-sm md:text-base font-medium leading-relaxed max-w-md"
                   >
                     "{latestTutorTurn.text}"
                   </motion.p>
                 ) : (
-                  <p className="text-paper-dim text-xs font-mono">
-                    {continuousMode ? '🎙️ Hands-Free Mode active • Speak anytime' : 'Press Space or tap orb to speak'}
+                  <p className="text-white/40 text-xs">
+                    {continuousMode ? '🎙️ Hands-Free Active • Speak naturally anytime' : 'Press Spacebar or tap sphere to speak'}
                   </p>
                 )}
               </div>
 
               {speechError && (
-                <div className="mt-2 text-xs text-amber-400 font-mono bg-amber-500/10 px-3 py-1 rounded-lg border border-amber-500/30">
+                <div className="mt-2 text-xs text-amber-300 bg-amber-500/10 px-3.5 py-1.5 rounded-full border border-amber-500/30">
                   {speechError}
                 </div>
               )}
             </div>
 
-            {/* Bottom Quick Bar inside Voice View */}
-            <div className="w-full flex items-center justify-between gap-3 z-10 pt-2">
+            {/* Bottom Quick Action Pill Bar */}
+            <div className="w-full flex items-center justify-between gap-3 z-10 pt-2 max-w-md">
               <button
                 onClick={handleSurprisePrompt}
-                className="flex-1 py-2.5 px-3 rounded-xl bg-steel-1/90 hover:bg-steel-2 border border-line text-xs font-mono text-paper transition-all flex items-center justify-center gap-1.5 shadow-md hover:border-orange-brand/50"
+                className="flex-1 py-2.5 px-4 rounded-full glass-pill text-xs font-medium text-white/90 hover:text-white transition-all flex items-center justify-center gap-2 shadow-sm hover:border-violet-500/40 cursor-pointer"
               >
-                <Sparkles className="w-3.5 h-3.5 text-orange-brand" />
+                <Sparkles className="w-3.5 h-3.5 text-violet-400" />
                 <span>Surprise Topic</span>
               </button>
 
               <button
                 onClick={() => setContinuousMode(!continuousMode)}
-                className={`py-2.5 px-3 rounded-xl border text-xs font-mono flex items-center justify-center gap-1.5 transition-all shadow-md ${
+                className={`py-2.5 px-4 rounded-full border text-xs font-medium flex items-center justify-center gap-2 transition-all shadow-sm cursor-pointer ${
                   continuousMode
-                    ? 'bg-orange-brand/20 border-orange-brand text-orange-brand font-semibold'
-                    : 'bg-steel-1/90 border-line text-paper-dim hover:text-white'
+                    ? 'bg-violet-600/30 border-violet-500 text-violet-200'
+                    : 'glass-pill text-white/60 hover:text-white'
                 }`}
-                title="Continuous turn-taking"
+                title="Continuous conversation mode"
               >
-                <span className={`w-2 h-2 rounded-full ${continuousMode ? 'bg-orange-brand animate-ping' : 'bg-paper-dim'}`} />
+                <span className={`w-2 h-2 rounded-full ${continuousMode ? 'bg-violet-400 animate-ping' : 'bg-white/30'}`} />
                 <span>{continuousMode ? 'Hands-Free ON' : 'Hands-Free OFF'}</span>
               </button>
             </div>
           </div>
         )}
 
-        {/* TAB 2: TURN-BY-TURN FEEDBACK & DIALOGUE VIEW */}
+        {/* TAB 2: TURN-BY-TURN COACHING & GRAMMAR FEED */}
         {activeTab === 'feed' && (
-          <div className="h-full max-w-3xl mx-auto flex flex-col justify-between px-4 py-3">
+          <div className="h-full max-w-3xl mx-auto flex flex-col justify-between px-4 py-4">
             <div className="flex-1 overflow-y-auto pr-1 space-y-4">
-              <div className="flex items-center justify-between pb-2 border-b border-line/60">
-                <span className="font-mono text-xs text-paper-dim uppercase tracking-wider">
-                  Conversation & Grammar Deck ({turns.length} messages)
+              <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
+                <span className="text-xs text-white/50 font-semibold uppercase tracking-wider">
+                  Conversation & Fluency History ({turns.length})
                 </span>
                 <button
                   onClick={handleResetConversation}
-                  className="text-paper-dim hover:text-white text-xs font-mono flex items-center gap-1"
+                  className="text-white/40 hover:text-white text-xs flex items-center gap-1.5 cursor-pointer"
                 >
                   <RotateCcw className="w-3 h-3" />
-                  <span>Clear</span>
+                  <span>Clear History</span>
                 </button>
               </div>
 
@@ -577,12 +577,12 @@ export default function StandaloneEnglishCoachPage() {
 
               {isProcessing && (
                 <div className="flex items-center gap-3 my-3">
-                  <div className="w-8 h-8 rounded-full bg-steel-2 border border-line flex items-center justify-center text-sm">
-                    🤖
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-violet-500 to-indigo-600 flex items-center justify-center text-xs font-bold shadow-md shadow-violet-500/20">
+                    AI
                   </div>
-                  <div className="bg-steel-1 border border-line rounded-2xl px-4 py-3 text-xs font-mono text-paper-dim flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-orange-brand animate-ping" />
-                    <span>Analyzing grammar & drafting reply...</span>
+                  <div className="glass-panel rounded-2xl px-4 py-3 text-xs text-white/70 flex items-center gap-2.5">
+                    <span className="w-2 h-2 rounded-full bg-violet-400 animate-ping" />
+                    <span>Analyzing grammar & crafting reply...</span>
                   </div>
                 </div>
               )}
@@ -596,19 +596,19 @@ export default function StandaloneEnglishCoachPage() {
                 e.preventDefault();
                 handleUserSubmit(textInput);
               }}
-              className="pt-3 border-t border-line/70 flex items-center gap-2 bg-ink"
+              className="pt-3 border-t border-white/[0.06] flex items-center gap-2 bg-transparent"
             >
               <input
                 type="text"
                 value={textInput}
                 onChange={e => setTextInput(e.target.value)}
-                placeholder="Type in English (or switch to Live Voice tab)..."
-                className="flex-1 bg-steel-2/90 border border-line rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white placeholder:text-paper-dim/40 focus:outline-none focus:border-orange-brand"
+                placeholder="Type your message in English..."
+                className="flex-1 glass-panel rounded-full px-4 py-3 text-xs sm:text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-violet-500 transition-colors"
               />
               <button
                 type="submit"
                 disabled={!textInput.trim() || isProcessing}
-                className="bg-orange-brand hover:bg-orange-dim text-white p-2.5 rounded-xl disabled:opacity-40 transition-colors cursor-pointer"
+                className="w-10 h-10 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white flex items-center justify-center disabled:opacity-30 transition-all cursor-pointer shadow-md shadow-violet-500/25 shrink-0"
               >
                 <Send className="w-4 h-4" />
               </button>
@@ -619,26 +619,26 @@ export default function StandaloneEnglishCoachPage() {
         {/* TAB 3: ROLEPLAY SCENARIOS VIEW */}
         {activeTab === 'scenarios' && (
           <div className="h-full max-w-4xl mx-auto overflow-y-auto px-4 py-4 space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-line">
+            <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
               <div>
-                <h2 className="font-display text-lg text-paper uppercase tracking-wide">
+                <h2 className="text-base sm:text-lg font-semibold text-white tracking-tight">
                   Real-World Roleplay Scenarios
                 </h2>
-                <p className="text-paper-dim text-xs font-mono">
-                  Select a scenario to practice high-stakes English in context
+                <p className="text-white/40 text-xs">
+                  Practice contextual speaking across business, travel, and high-stakes situations
                 </p>
               </div>
 
               {/* Filter Tabs */}
-              <div className="flex items-center gap-1.5 text-xs font-mono">
+              <div className="flex items-center gap-1 text-xs">
                 {['all', 'basic', 'intermediate', 'pro'].map(lvl => (
                   <button
                     key={lvl}
                     onClick={() => setScenarioFilter(lvl)}
-                    className={`px-2.5 py-1 rounded-lg uppercase tracking-wider transition-colors ${
+                    className={`px-3 py-1 rounded-full uppercase tracking-wider text-[11px] font-medium transition-colors cursor-pointer ${
                       scenarioFilter === lvl
-                        ? 'bg-orange-brand text-white font-bold'
-                        : 'bg-steel-2 text-paper-dim hover:text-white'
+                        ? 'bg-violet-600 text-white shadow-sm'
+                        : 'glass-pill text-white/40 hover:text-white'
                     }`}
                   >
                     {lvl}
@@ -647,7 +647,7 @@ export default function StandaloneEnglishCoachPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pb-8">
               {PRACTICE_SCENARIOS.filter(
                 s => scenarioFilter === 'all' || s.level === scenarioFilter
               ).map(sc => {
@@ -657,39 +657,39 @@ export default function StandaloneEnglishCoachPage() {
                 return (
                   <div
                     key={sc.id}
-                    className={`p-4 rounded-2xl border transition-all flex flex-col justify-between ${
+                    className={`p-5 rounded-3xl glass-panel border transition-all flex flex-col justify-between ${
                       isActive
-                        ? 'bg-orange-brand/10 border-orange-brand shadow-lg'
-                        : 'bg-steel-1/80 border-line hover:border-paper-dim/40'
+                        ? 'border-violet-500/60 bg-violet-500/[0.08] shadow-xl shadow-violet-500/10'
+                        : 'border-white/[0.07] hover:border-white/20 hover:bg-white/[0.03]'
                     }`}
                   >
                     <div>
                       <div className="flex items-start justify-between">
-                        <span className="text-3xl">{sc.icon}</span>
+                        <span className="text-3xl p-2 rounded-2xl bg-white/[0.04] border border-white/[0.06]">{sc.icon}</span>
                         <span
-                          className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded-full"
+                          className="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full"
                           style={{
                             backgroundColor: `${levelCfgItem.color}20`,
                             color: levelCfgItem.color,
-                            border: `1px solid ${levelCfgItem.color}40`
+                            border: `1px solid ${levelCfgItem.color}35`
                           }}
                         >
                           {sc.level}
                         </span>
                       </div>
 
-                      <h3 className="font-bold text-white text-sm sm:text-base mt-2.5">
+                      <h3 className="font-semibold text-white text-base mt-3">
                         {sc.title}
                       </h3>
-                      <p className="text-paper-dim text-xs mt-1 leading-relaxed">
+                      <p className="text-white/60 text-xs mt-1.5 leading-relaxed">
                         {sc.description}
                       </p>
 
-                      <div className="mt-3 flex items-center gap-1.5 flex-wrap">
+                      <div className="mt-3.5 flex items-center gap-1.5 flex-wrap">
                         {sc.targetKeywords.map((kw, i) => (
                           <span
                             key={i}
-                            className="text-[10px] font-mono bg-steel-2 px-1.5 py-0.5 rounded text-paper-dim border border-line/60"
+                            className="text-[10px] px-2 py-0.5 rounded-md bg-white/[0.04] text-white/50 border border-white/[0.05]"
                           >
                             #{kw}
                           </span>
@@ -703,14 +703,14 @@ export default function StandaloneEnglishCoachPage() {
                         setLevel(sc.level);
                         setActiveTab('voice');
                       }}
-                      className={`mt-4 w-full py-2.5 px-3 rounded-xl text-xs font-mono font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                      className={`mt-5 w-full py-2.5 px-4 rounded-full text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${
                         isActive
-                          ? 'bg-orange-brand text-white shadow-lg'
-                          : 'bg-steel-2 hover:bg-orange-brand hover:text-white border border-line text-paper'
+                          ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-lg shadow-violet-500/25'
+                          : 'glass-pill hover:bg-white/[0.1] text-white'
                       }`}
                     >
-                      <Play className="w-3.5 h-3.5" />
-                      <span>{isActive ? 'Continue Scenario' : 'Start Scenario'}</span>
+                      <Play className="w-3.5 h-3.5 fill-current" />
+                      <span>{isActive ? 'Continue Session' : 'Start Scenario'}</span>
                     </button>
                   </div>
                 );
@@ -722,14 +722,14 @@ export default function StandaloneEnglishCoachPage() {
         {/* TAB 4: VOCAB VAULT FLASHCARDS VIEW */}
         {activeTab === 'vault' && (
           <div className="h-full max-w-3xl mx-auto overflow-y-auto px-4 py-4 space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-line">
+            <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
               <div>
-                <h2 className="font-display text-lg text-paper uppercase tracking-wide flex items-center gap-2">
-                  <Bookmark className="w-5 h-5 text-orange-brand" />
+                <h2 className="text-base sm:text-lg font-semibold text-white tracking-tight flex items-center gap-2">
+                  <Bookmark className="w-4 h-4 text-violet-400" />
                   <span>Personal Vocab Vault</span>
                 </h2>
-                <p className="text-paper-dim text-xs font-mono">
-                  {savedVocab.length} words saved from your real-time conversations
+                <p className="text-white/40 text-xs">
+                  {savedVocab.length} words saved from your real-time speaking turns
                 </p>
               </div>
 
@@ -739,7 +739,7 @@ export default function StandaloneEnglishCoachPage() {
                     setSavedVocab([]);
                     localStorage.removeItem('english_vocab_vault');
                   }}
-                  className="text-red-400 hover:text-red-300 text-xs font-mono flex items-center gap-1"
+                  className="text-rose-400 hover:text-rose-300 text-xs flex items-center gap-1 cursor-pointer"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                   <span>Clear All</span>
@@ -748,54 +748,54 @@ export default function StandaloneEnglishCoachPage() {
             </div>
 
             {savedVocab.length === 0 ? (
-              <div className="text-center py-16 text-paper-dim space-y-3">
-                <Sparkles className="w-10 h-10 mx-auto text-paper-dim/30" />
-                <p className="text-sm font-semibold text-white">Your Vocab Vault is empty</p>
+              <div className="text-center py-20 text-white/40 space-y-3">
+                <Sparkles className="w-10 h-10 mx-auto text-white/20" />
+                <p className="text-sm font-medium text-white/80">Your Vocab Vault is empty</p>
                 <p className="text-xs max-w-sm mx-auto leading-relaxed">
-                  During voice conversations, tap the bookmark icon on any Pro vocabulary upgrade in the Feedback tab to save it here for pronunciation review.
+                  During voice conversations, tap the bookmark icon on any Pro vocabulary upgrade in the Coaching tab to save it here for native pronunciation practice.
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pb-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pb-8">
                 {savedVocab.map(item => {
                   const lvlCfg = LEVEL_CONFIGS[item.level || 'intermediate'];
                   return (
                     <div
                       key={item.id}
-                      className="p-4 rounded-2xl bg-steel-1/90 border border-line flex flex-col justify-between group shadow-md"
+                      className="p-5 rounded-3xl glass-panel border border-white/[0.08] flex flex-col justify-between group shadow-lg"
                     >
                       <div>
                         <div className="flex items-center justify-between">
-                          <span className="font-bold text-white text-base tracking-wide">
+                          <span className="font-bold text-white text-base">
                             {item.word}
                           </span>
                           <span
-                            className="text-[10px] font-mono px-2 py-0.5 rounded-full uppercase font-bold"
+                            className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full"
                             style={{
                               backgroundColor: `${lvlCfg.color}20`,
                               color: lvlCfg.color,
-                              border: `1px solid ${lvlCfg.color}40`
+                              border: `1px solid ${lvlCfg.color}35`
                             }}
                           >
                             {item.level}
                           </span>
                         </div>
 
-                        <p className="text-xs text-paper-dim mt-2 leading-normal">
+                        <p className="text-xs text-white/70 mt-2 leading-relaxed">
                           {item.meaning}
                         </p>
 
                         {item.example && (
-                          <p className="text-xs text-orange-brand/90 italic font-mono mt-2 bg-steel-2/50 p-2 rounded-lg">
+                          <p className="text-xs text-violet-300/90 italic mt-2.5 bg-white/[0.03] p-2.5 rounded-xl border border-white/[0.04]">
                             "{item.example}"
                           </p>
                         )}
                       </div>
 
-                      <div className="mt-3 pt-2.5 border-t border-line/60 flex items-center justify-between">
+                      <div className="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between">
                         <button
                           onClick={() => speak(item.word, 0.9)}
-                          className="text-xs font-mono text-orange-brand hover:text-white transition-colors flex items-center gap-1.5"
+                          className="text-xs text-violet-400 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
                         >
                           <Volume2 className="w-4 h-4" />
                           <span>Pronounce</span>
@@ -803,7 +803,7 @@ export default function StandaloneEnglishCoachPage() {
 
                         <button
                           onClick={() => handleDeleteVocab(item.id)}
-                          className="text-paper-dim/40 hover:text-red-400 p-1 rounded transition-colors"
+                          className="text-white/30 hover:text-rose-400 p-1 rounded-md transition-colors cursor-pointer"
                           title="Delete word"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
