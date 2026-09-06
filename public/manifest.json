@@ -1,0 +1,17 @@
+{
+  "name": "FluentVoice AI - English Coach",
+  "short_name": "FluentVoice",
+  "description": "Improve your English from Basic to Pro with AI real-time voice conversations & fluency feedback",
+  "start_url": "/english-coach",
+  "display": "standalone",
+  "background_color": "#0E0E10",
+  "theme_color": "#0E0E10",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0E0E10;
+  --color-steel-1: #1A1B1E;
+  --color-steel-2: #23242A;
+  --color-orange-brand: #FF6A00;
+  --color-orange-dim: #CC5500;
+  --color-paper: #ECE9E2;
+  --color-paper-dim: #B9B6AD;
+  --color-line: #3A3B40;
+
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+:root {
+  --background: #0E0E10;
+  --foreground: #ECE9E2;
+}
+
+body {
+  background: #0E0E10;
+  color: #ECE9E2;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Custom engineering grid background style */
+.blueprint-grid {
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.015) 39px, rgba(255,255,255,0.015) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.015) 39px, rgba(255,255,255,0.015) 40px);
+}
