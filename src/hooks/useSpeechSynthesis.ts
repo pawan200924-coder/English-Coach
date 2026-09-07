@@ -15,6 +15,15 @@ export function useSpeechSynthesis({ onSpeakStart, onSpeakEnd }: UseSpeechSynthe
   const [pitch, setPitch] = useState<number>(1.0);
 
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const onSpeakStartRef = useRef(onSpeakStart);
+  useEffect(() => {
+    onSpeakStartRef.current = onSpeakStart;
+  }, [onSpeakStart]);
+
+  const onSpeakEndRef = useRef(onSpeakEnd);
+  useEffect(() => {
+    onSpeakEndRef.current = onSpeakEnd;
+  }, [onSpeakEnd]);
 
   // Load and filter voices
   useEffect(() => {
@@ -64,23 +73,23 @@ export function useSpeechSynthesis({ onSpeakStart, onSpeakEnd }: UseSpeechSynthe
 
       utterance.onstart = () => {
         setIsSpeaking(true);
-        if (onSpeakStart) onSpeakStart();
+        if (onSpeakStartRef.current) onSpeakStartRef.current();
       };
 
       utterance.onend = () => {
         setIsSpeaking(false);
-        if (onSpeakEnd) onSpeakEnd();
+        if (onSpeakEndRef.current) onSpeakEndRef.current();
       };
 
       utterance.onerror = (e) => {
         console.warn('Speech synthesis error:', e);
         setIsSpeaking(false);
-        if (onSpeakEnd) onSpeakEnd();
+        if (onSpeakEndRef.current) onSpeakEndRef.current();
       };
 
       window.speechSynthesis.speak(utterance);
     },
-    [selectedVoice, rate, pitch, onSpeakStart, onSpeakEnd]
+    [selectedVoice, rate, pitch]
   );
 
   const stopSpeaking = useCallback(() => {
