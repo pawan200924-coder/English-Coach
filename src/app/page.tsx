@@ -358,9 +358,12 @@ export default function StandaloneEnglishCoachPage() {
           <div className="h-4 w-[1px] bg-white/10 hidden sm:block" />
 
           {/* Day Streak Pill */}
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full glass-pill text-amber-300 text-xs font-semibold shadow-sm">
+          <div
+            title="Daily speaking practice streak: 3 days in a row!"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-full glass-pill text-amber-300 text-xs font-semibold shadow-sm cursor-default"
+          >
             <Flame className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-            <span>{streakDays}d Streak</span>
+            <span>{streakDays} Day Streak</span>
           </div>
         </div>
 
