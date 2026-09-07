@@ -1,8 +1,8 @@
-﻿# 🎙️ FluentVoice AI — Conversational English Coach (Basic to Pro)
+# 🎙️ FluentVoice AI — Conversational English Coach (Basic to Pro)
 
 An interactive, voice-first AI English coach built to take learners from **Basic (A1-A2)** to **Pro (C1-C2)** fluency with real-time grammar repair, vocabulary upgrades, and immersive roleplay scenarios.
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel-black?style=for-the-badge&logo=vercel)](https://english-coach-1.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel-black?style=for-the-badge&logo=vercel)](https://english-voice-coach-one.vercel.app)
 [![Next.js](https://img.shields.io/badge/Next.js-16.2-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
