@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  --color-obsidian: #07080B;
-  --color-surface-1: #0F1117;
-  --color-surface-2: #161922;
-  --color-surface-3: #1E222E;
+  --color-obsidian: #05070B;
+  --color-surface-1: #0A0D14;
+  --color-surface-2: #121622;
+  --color-surface-3: #1A1F2E;
   --color-accent-violet: #8B5CF6;
   --color-accent-indigo: #6366F1;
   --color-accent-cyan: #06B6D4;
@@ -18,53 +18,104 @@
 }
 
 :root {
-  --background: #07080B;
-  --foreground: #F1F3F9;
+  --background: #05070B;
+  --foreground: #F3F4F8;
 }
 
 body {
-  background: #07080B;
-  color: #F1F3F9;
+  background: #05070B;
+  color: #F3F4F8;
   font-family: var(--font-sans);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Ambient Aurora Glow Background */
+/* Fluid Animated Aurora Ambient Canvas */
 .aurora-canvas {
-  background-color: #07080B;
+  background-color: #05070B;
   background-image: 
-    radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.08) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(6, 182, 212, 0.08) 0px, transparent 50%),
-    radial-gradient(at 50% 50%, rgba(99, 102, 241, 0.05) 0px, transparent 60%),
-    radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.06) 0px, transparent 50%);
+    radial-gradient(at 15% 15%, rgba(139, 92, 246, 0.12) 0px, transparent 45%),
+    radial-gradient(at 85% 10%, rgba(6, 182, 212, 0.10) 0px, transparent 45%),
+    radial-gradient(at 50% 50%, rgba(99, 102, 241, 0.08) 0px, transparent 55%),
+    radial-gradient(at 75% 85%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+    radial-gradient(at 20% 90%, rgba(244, 63, 94, 0.06) 0px, transparent 45%);
+  background-size: 150% 150%;
+  animation: aurora-mesh 25s ease-in-out infinite alternate;
 }
 
-/* Glassmorphism Classes */
+@keyframes aurora-mesh {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 30% 100%;
+  }
+}
+
+/* Next-Gen Glassmorphism System */
+.glass-island {
+  background: rgba(12, 15, 24, 0.72);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 
+    0 16px 40px -12px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
 .glass-panel {
-  background: rgba(18, 21, 29, 0.65);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(14, 18, 28, 0.70);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 12px 32px -8px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .glass-pill {
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 
+    0 4px 16px -2px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.glass-pill:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 .glass-card-hover {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card-hover:hover {
-  background: rgba(25, 29, 40, 0.85);
-  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(22, 27, 40, 0.85);
+  border-color: rgba(255, 255, 255, 0.18);
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
+  box-shadow: 
+    0 16px 36px -8px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+/* 3D Glass Sphere Highlights */
+.plasma-sphere-shadow {
+  box-shadow: 
+    0 0 70px -10px rgba(139, 92, 246, 0.4),
+    inset 0 0 40px rgba(255, 255, 255, 0.2),
+    inset 0 -15px 30px rgba(0, 0, 0, 0.6);
+}
+
+.specular-rim {
+  background: radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 65%);
 }
 
 /* Custom Sleek Scrollbar */
@@ -78,10 +129,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
 }
